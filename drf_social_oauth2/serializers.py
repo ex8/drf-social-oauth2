@@ -31,3 +31,11 @@ class RevokeTokenSerializer(Serializer):
 class DisconnectBackendSerializer(Serializer):
     backend = CharField(max_length=50)
     association_id = IntegerField()
+
+
+class MultiFactorTokenSerializer(Serializer):
+    token = CharField(
+        max_length=255,
+    )
+    client_id = CharField(max_length=100)
+    client_secret = CharField(max_length=255)
