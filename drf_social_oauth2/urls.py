@@ -13,6 +13,7 @@ from drf_social_oauth2.views import (
     InvalidateSessions,
     DisconnectBackendView,
     InvalidateRefreshTokens,
+    multi_factor_auth
 )
 
 app_name = 'drf'
@@ -41,6 +42,9 @@ try:
             DisconnectBackendView.as_view(),
             name='disconnect_backend',
         ),
+        url(
+            r"^multi-factor-auth/?$", multi_factor_auth, name="multi_factor_auth"
+        ),
     ]
 except NameError:
     urlpatterns += [
@@ -64,4 +68,5 @@ except NameError:
             DisconnectBackendView.as_view(),
             name='disconnect_backend',
         ),
+        re_path(r"^multi-factor-auth/?$", multi_factor_auth, name="multi_factor_auth"),
     ]
