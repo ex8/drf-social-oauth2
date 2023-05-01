@@ -1,8 +1,10 @@
 from json import loads as json_loads
 
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from social_core.exceptions import MissingBackend
 from social_django.utils import load_strategy, load_backend
@@ -31,6 +33,7 @@ from drf_social_oauth2.serializers import (
     DisconnectBackendSerializer,
     InvalidateSessionsSerializer,
 )
+from drf_social_oauth2.forms import MultiFactorAuthForm
 from drf_social_oauth2.oauth2_backends import KeepRequestCore
 from drf_social_oauth2.oauth2_endpoints import SocialTokenServer
 
@@ -251,3 +254,15 @@ class DisconnectBackendView(APIView):
             user=self.get_object(), association_id=association_id, *args, **kwargs
         )
         return Response(status=HTTP_204_NO_CONTENT)
+
+
+def multi_factor_auth(request):
+    # if request.method == "POST":
+    #     form = MultiFactorAuthForm(request.POST)
+    #     if form.is_valid():
+    #         dweet = form.save(commit=False)
+    #         dweet.user = request.user
+    #         dweet.save()
+    #         return redirect("dwitter:dashboard")
+    form = MultiFactorAuthForm()
+    return render(request, settings.DRF_MULTI_AUTH_TEMPLATE, {"form": form})
