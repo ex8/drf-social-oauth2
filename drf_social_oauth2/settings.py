@@ -16,3 +16,7 @@ if hasattr(settings, 'ACTIVATE_JWT') and getattr(settings, 'ACTIVATE_JWT'):
     oauth2_settings.DEFAULTS[
         'REFRESH_TOKEN_GENERATOR'
     ] = 'drf_social_oauth2.generate_token'
+
+# the django project that implements this framework, needs to specify the template name
+# in order to enable 2-factor authentication.
+DRF_MULTI_AUTH_TEMPLATE = ''
