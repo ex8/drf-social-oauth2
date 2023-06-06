@@ -33,9 +33,5 @@ setup(
         'python-jose[cryptography]>=3.3.0',
     ],
     include_package_data=True,
-    package_data={
-        'drf_social_oauth2': ['migrations/*.py'],
-    },
-
     zip_safe=False,
 )
